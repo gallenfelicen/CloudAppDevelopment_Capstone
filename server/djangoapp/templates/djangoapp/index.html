@@ -14,11 +14,8 @@
 </head>
 
     <body>
-
-     This is the index page of your Django app!
-    <!--Add a nav bar here -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Your Site</a>
+        <a class="navbar-brand" href="#">Best Car Dealership</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,6 +32,29 @@
                 </li>
             </ul>
         </div>
+
+        {% if user.is_authenticated %}
+            <div class="rightalign">
+                <div class="dropdown">
+                    <button class="dropbtn">{{user.first_name}}</button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'djangoapp:logout' %}">Logout</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <form action="{% url 'djangoapp:login' %}"  method="post">
+                {% csrf_token %}
+                <div class="container">
+                  <label for="username"><b>User Name</b></label>
+                  <input type="text" placeholder="Enter User Name: " name="username" required>
+                  <label for="psw"><b>Password</b></label>
+                  <input type="password" placeholder="Enter Password: " name="psw" required>
+                  <button class="button" type="submit">Login</button>
+                  <a class="button" href="{% url 'djangoapp:signup' %}">Signup</a>
+                </div>
+              </form>
+        {% endif %}
     </nav>
     <!--Add a dealer table here -->
 
